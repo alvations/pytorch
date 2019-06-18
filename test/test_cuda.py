@@ -1070,10 +1070,6 @@ class TestCuda(TestCase):
         test_mul(torch.float32)
         test_mul(torch.float64)
 
-        a1 = torch.tensor([True, False, False, True], dtype=torch.bool, device='cuda')
-        a2 = torch.tensor([True, False, True, False], dtype=torch.bool, device='cuda')
-        self.assertEqual(a1 * a2, torch.tensor([True, False, False, False], dtype=torch.bool, device='cuda'))
-
     @unittest.skipIf(not TEST_MULTIGPU, "only one GPU detected")
     def test_type_conversions_same_gpu(self):
         x = torch.randn(5, 5).cuda(1)
