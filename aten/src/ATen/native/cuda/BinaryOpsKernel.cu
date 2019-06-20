@@ -56,7 +56,7 @@ static void mul_kernel_cuda(TensorIterator& iter) {
   AT_DISPATCH_ALL_TYPES_AND2(kHalf, kBool, iter.dtype(), "mul_cuda", [&]() {
     if (iter.dtype() == ScalarType::Bool) {
       // Workaround for the error: ‘*’ in boolean context, suggest ‘&&’ instead [-Werror=int-in-bool-context]
-      gpu_binary_kernel(iter, []GPU_LAMBDA(bool a, bool b) -> bool {
+      gpu_kernel_with_scalars(iter, []GPU_LAMBDA(bool a, bool b) -> bool {
         return a && b;
       });
     } else {
