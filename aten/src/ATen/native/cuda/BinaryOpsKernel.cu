@@ -67,8 +67,7 @@ static void div_kernel_cuda(TensorIterator& iter) {
 
 template <typename scalar_t>
 void mul_kernel_impl(TensorIterator& iter) {
-  // Some of the compilers that we support give an error if we try multiplying two
-  // booleans via '*' operator. Using '&&' as a workaround.
+  // Workaround for the error: ‘*’ in boolean context, suggest ‘&&’ instead [-Werror=int-in-bool-context]
   if (iter.dtype() == ScalarType::Bool) {
     gpu_binary_kernel(iter, []GPU_LAMBDA(bool a, bool b) -> bool {
       return a && b;
